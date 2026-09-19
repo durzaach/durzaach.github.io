@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BTKitty 搜索 - 探索猫咪行为学、饲养指南及猫咪相关资讯的综合搜索平台，为您提供专业的猫咪养护知识。">
+    <meta name="keywords" content="BTKitty搜索,猫咪行为,养猫指南,猫咪健康,猫咪品种">
+    <title>BTKitty搜索 - 猫咪行为学探索与养猫指南</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #ec4899;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.025);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 24px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: radial-gradient(circle at top center, #e0e7ff 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 24px;
+            padding-right: 120px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: var(--card-bg);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            bottom: 8px;
+            padding: 0 24px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Featured Content */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            padding: 40px 0;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s;
+        }
+
+        .content-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background-color: #e2e8f0;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Sidebar */
+        .sidebar-widget {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .widget-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hot-list {
+            list-style: none;
+        }
+
+        .hot-list li {
+            margin-bottom: 12px;
+        }
+
+        .hot-list a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            display: block;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .hot-list a:hover {
+            background-color: #f1f5f9;
+        }
+
+        .hot-list .rank {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: var(--text-secondary);
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+
+        .hot-list .rank.top-1 { background-color: #ef4444; }
+        .hot-list .rank.top-2 { background-color: #f97316; }
+        .hot-list .rank.top-3 { background-color: #eab308; }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            background-color: #f1f5f9;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e293b;
+            color: #94a3b8;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner {
+                height: 60px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <span>🐾</span> BTKitty搜索
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#">猫咪品种</a></li>
+                    <li><a href="#">行为解析</a></li>
+                    <li><a href="#">健康护理</a></li>
+                    <li><a href="#">社区论坛</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="btn btn-outline">登录</a>
+                <a href="#" class="btn btn-primary">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>探索猫咪世界的奥秘</h1>
+                <p>BTKitty搜索为您提供最专业的猫咪行为学资料、饲养指南和健康资讯。无论您是新手铲屎官还是资深猫奴，这里都有您需要的答案。</p>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="搜索猫咪行为、品种、疾病或护理知识..." aria-label="搜索内容">
+                    <button class="btn btn-primary search-btn">搜索</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="container categories">
+            <div class="section-header">
+                <h2 class="section-title">热门搜索分类</h2>
+            </div>
+            <div class="category-grid">
+                <div class="category-card">
+                    <span class="category-icon">🧬</span>
+                    <div class="category-name">猫咪行为学</div>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">🍖</span>
+                    <div class="category-name">科学喂养</div>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">🏥</span>
+                    <div class="category-name">健康医疗</div>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">🐱</span>
+                    <div class="category-name">品种大全</div>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">🛠️</span>
+                    <div class="category-name">用品推荐</div>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">🎓</span>
+                    <div class="category-name">新手指南</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <section class="container content-grid">
+            <div class="main-column">
+                <div class="section-header">
+                    <h2 class="section-title">最新养猫资讯</h2>
+                </div>
+                
+                <article class="content-card">
+                    <img src="https://picsum.photos/seed/cat1/800/400" alt="猫咪互动" class="card-image">
+                    <div class="card-body">
+                        <span class="card-tag">行为解析</span>
+                        <h3 class="card-title">猫咪踩奶行为的科学解释与心理分析</h3>
+                        <p class="card-desc">猫咪踩奶是一种典型的舒适行为，通常发生在幼猫时期。了解这一行为背后的进化心理学意义，有助于主人更好地与猫咪建立亲密关系。</p>
+                        <div class="card-footer">
+                            <span>2023年10月24日</span>
+                            <span>阅读 2,340</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="content-card" style="margin-top: 24px;">
+                    <img src="https://picsum.photos/seed/cat2/800/400" alt="猫咪饮食" class="card-image">
+                    <div class="card-body">
+                        <span class="card-tag">科学喂养</span>
+                        <h3 class="card-title">猫粮成分表怎么看？避开这些隐形陷阱</h3>
+                        <p class="card-desc">市面上的猫粮琳琅满目，但如何辨别优劣？本文将详细解读猫粮包装上的成分表，教您如何识别诱食剂、谷物填充物以及优质蛋白质来源。</p>
+                        <div class="card-footer">
+                            <span>2023年10月22日</span>
+                            <span>阅读 1,892</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="content-card" style="margin-top: 24px;">
+                    <img src="https://picsum.photos/seed/cat3/800/400" alt="猫咪健康" class="card-image">
+                    <div class="card-body">
+                        <span class="card-tag">健康医疗</span>
+                        <h3 class="card-title">猫咪绝育的最佳时机与术后护理指南</h3>
+                        <p class="card-desc">绝育是控制流浪猫数量、减少猫咪疾病风险的重要手段。本文将探讨公猫和母猫的最佳绝育年龄，并提供详细的术后护理建议。</p>
+                        <div class="card-footer">
+                            <span>2023年10月20日</span>
+                            <span>阅读 3,105</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h4 class="widget-title">🔥 热门搜索榜</h4>
+                    <ul class="hot-list">
+                        <li><a href="#"><span class="rank top-1">1</span>猫咪乱尿怎么办</a></li>
+                        <li><a href="#"><span class="rank top-2">2</span>无毛猫护理</a></li>
+                        <li><a href="#"><span class="rank top-3">3</span>猫咪疫苗时间表</a></li>
+                        <li><a href="#"><span class="rank">4</span>猫传腹症状</a></li>
+                        <li><a href="#"><span class="rank">5</span>猫咪挑食解决</a></li>
+                        <li><a href="#"><span class="rank">6</span>猫砂盆怎么选</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h4 class="widget-title">📢 养猫小贴士</h4>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                        <p style="margin-bottom: 12px;">💡 <strong>新手提示：</strong>刚带回家的猫咪需要隔离观察至少两周，确认身体健康后再接触家里的其他宠物。</p>
+                        <p>💧 <strong>饮水提醒：</strong>猫咪天性不爱喝水，建议使用流动饮水机或放置多个水碗，预防泌尿系统疾病。</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h4 class="widget-title">📚 热门文章</h4>
+                    <ul class="hot-list">
+                        <li><a href="#">为什么猫咪喜欢钻纸箱？</a></li>
+                        <li><a href="#">如何判断猫咪是否发情？</a></li>
+                        <li><a href="#">猫咪掉毛季如何应对？</a></li>
+                        <li><a href="#">猫抓板的选择与使用技巧</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header" style="text-align: center;">
+                    <h2 class="section-title">常见问题解答</h2>
+                    <p style="color: var(--text-secondary);">关于 BTKitty搜索 和猫咪养护的常见疑问</p>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">❓ BTKitty搜索收录哪些内容？</div>
+                        <div class="faq-answer">我们收录了关于猫咪行为学、品种介绍、科学喂养、健康医疗、用品评测以及社区讨论等全方位的资讯内容。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">❓ 如何利用搜索功能快速找到答案？</div>
+                        <div class="faq-answer">您可以直接输入具体症状、行为或品种名称进行搜索。我们提供智能联想和分类导航，帮助您精准定位信息。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">❓ 内容是否由专业人士审核？</div>
+                        <div class="faq-answer">我们的内容团队与兽医和宠物行为专家合作，确保信息的科学性和准确性。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>🐾 BTKitty搜索</h3>
+                    <p>致力于为每一位爱猫人士提供最专业、最全面的猫咪知识与互动平台。让养猫生活更加科学、健康、快乐。</p>
+                </div>
+                <div class="footer-col">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">平台介绍</a></li>
+                        <li><a href="#">编辑团队</a></li>
+                        <li><a href="#">联系方式</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>内容栏目</h4>
+                    <ul>
+                        <li><a href="#">猫咪行为</a></li>
+                        <li><a href="#">品种百科</a></li>
+                        <li><a href="#">健康百科</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>帮助中心</h4>
+                    <ul>
+                        <li><a href="#">使用指南</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">用户协议</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 BTKitty搜索. All rights reserved. 仅供演示用途。</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+  </html>
